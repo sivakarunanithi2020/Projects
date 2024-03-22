@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Browser</title>
+</head>
+<body>
+    <h1>Files in Current Folder</h1>
+    <ul id="fileList"></ul>
+
+    <script>
+        // Fetching the current directory's contents
+        fetch('/api/getDirectoryContents') // Replace this with your actual API endpoint
+            .then(response => response.json())
+            .then(data => {
+                const fileListElement = document.getElementById('fileList');
+                data.forEach(file => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = file.path + '/' + file.name;
+                    fileListElement.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error fetching directory contents:', error));
+    </script>
+</body>
+</html>
